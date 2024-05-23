@@ -9,11 +9,14 @@ import "./App.css";
 
 const App = () => {
   const [data, setData] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
+    setLoading(true);
     // eslint-disable-next-line no-undef
     const ai = await requstToGroqAI(content.value);
     setData(ai);
+    setLoading(false);
   }
 
   return (
@@ -29,17 +32,26 @@ const App = () => {
           id='content'
         />
         <button 
-          className='bg-blue-500 p-2 rounded-md text-white font-semibold'
+          className={`bg-blue-500 p-2 rounded-md text-white font-semibold ${loading ? 'cursor-not-allowed' : ''}`}
           type='button'
           onClick={handleSubmit}
-        >Kirim</button>
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Kirim'}
+        </button>
       </form>
-      <div className="max-w-xl w-full mx-auto">
-        {data ? (
-          <SyntaxHighlight language='swift' style={darcula} wrapLongLines={true}>
-            {data}
-          </SyntaxHighlight>
-        ) : null }
+      <div className="max-w-xl w-full mx-auto flex justify-center items-center">
+        {loading ? (
+          <div className="text-center p-4">
+            <div className="loader"></div>
+          </div>
+        ) : (
+          data && (
+            <SyntaxHighlight language='swift' style={darcula} wrapLongLines={true}>
+              {data}
+            </SyntaxHighlight>
+          )
+        )}
       </div>
     </main>
   )
