@@ -1,5 +1,5 @@
 ## AI-powered Chat System with GroqAI Integration
-Li n k P r e v i e w: https://mezzky.github.io/ai-chat/
+Lin k P r e v i e w: https://mezzky.github.io/ai-chat/
 
 ## Project Description:
 
